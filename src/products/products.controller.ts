@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Req, Res, HttpStatus
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { ObjectId } from 'mongoose';
 
 @Controller('products')
 export class ProductsController {
@@ -23,8 +24,8 @@ export class ProductsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.productsService.findOne(+id);
+  async findOne(@Param('id') id: ObjectId) {
+    return await this.productsService.findOne(id);
   }
 
   @Patch(':id')
@@ -33,7 +34,7 @@ export class ProductsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.productsService.remove(+id);
+  remove(@Param('id') id: ObjectId) {
+    return this.productsService.remove(id);
   }
 }

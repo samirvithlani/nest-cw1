@@ -1,4 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import mongoose from 'mongoose';
+import { Category } from 'src/category/entities/category.entity';
 
 
 @Schema()
@@ -15,6 +17,12 @@ export class Product{
 
     @Prop()
     description: string;
+
+    @Prop({
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Category'
+    })
+    category:Category
 
 
 }

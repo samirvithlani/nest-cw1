@@ -2,3 +2,5 @@ command for creaet module
 
 
 cd src && nest g resource products
+
+nest g module auth

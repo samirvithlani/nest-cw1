@@ -5,6 +5,8 @@ import { User } from 'src/schemas/user.schema';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt/dist';
 import { SignupDto } from './dto/signup.dto';
+import { LoginDto } from './dto/login.dto';
+import { UnauthorizedException } from '@nestjs/common';
 
 @Injectable()
 export class AuthService {
@@ -28,5 +30,23 @@ export class AuthService {
         const token = this.jwtService.sign({id:user.name});
 
         return {token};
+    }
+
+    async login(loginDto:LoginDto):Promise<{token:string}>{
+
+        const {email,password} = loginDto;
+        const user = await this.userModel.findOne({email})
+        if(!user){
+            throw new UnauthorizedException('Invalid credentials');
+        }
+        const isPasswordMatch = await bcrypt.compare(password,user.password);
+        if(!isPasswordMatch){
+            throw new UnauthorizedException('Invalid credentials');
+        }
+
+        const token = this.jwtService.sign({id:user});
+        return {token};
+
+
     }
 }

@@ -6,10 +6,12 @@ import { ProductsModule } from './products/products.module';
 import { CategoryModule } from './category/category.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
+
 
 @Module({
-  imports: [ConfigModule.forRoot(),MongooseModule.forRoot("mongodb://127.0.0.1:27017/nestjscw1"),ProductsModule, CategoryModule, AuthModule],
+  imports: [ConfigModule.forRoot(),MongooseModule.forRoot("mongodb://127.0.0.1:27017/nestjscw1"),ProductsModule, CategoryModule, AuthModule,],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,JwtService],
 })
 export class AppModule {}

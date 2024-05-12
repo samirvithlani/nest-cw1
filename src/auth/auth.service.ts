@@ -44,9 +44,13 @@ export class AuthService {
             throw new UnauthorizedException('Invalid credentials');
         }
 
-        const token = this.jwtService.sign({id:user});
+        const token = this.jwtService.sign({id:user._id});
         return {token};
+    }
 
-
+    validateToken(token:string){
+        return this.jwtService.verify(token,{
+            secret:process.env.JWT_SECRET
+        });
     }
 }

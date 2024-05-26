@@ -31,9 +31,9 @@ export class AppController {
 
   cloudinaryHandler = async (file) => {
     cloudinary.config({
-      cloud_name: "dpjoxqisl",
-      api_key: "292199526794599",
-      api_secret: "KKZHWhEwjA1Q0zUx4gVfcsvcVRY"
+      cloud_name: "add your cloud name here",
+      api_key: "add your api key here",
+      api_secret: "add your api secret here"
     })
 
     return await cloudinary.uploader.upload(file.path);
